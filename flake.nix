@@ -39,9 +39,18 @@
 	  pkgs.git
 	  pkgs.spotify
 	  pkgs.arc-browser
-	  pkgs.vscodium
-	  pkgs.dotnetCorePackages.dotnet_9.sdk
 	  pkgs.ollama
+	  pkgs.iosevka
+	  pkgs.openssl
+	  pkgs.fzf
+	  pkgs.fd
+	  pkgs.ripgrep
+	  pkgs.python314
+    pkgs.go
+    pkgs.rustup
+    pkgs.yarn
+    pkgs.iina
+    pkgs.zellij
         ];
 
       homebrew = {
@@ -55,8 +64,12 @@
 	  "linearmouse"
 	  "legcord"
 	  "maccy"
+	  "tradingview"
+    "anki"
+    "ghostty"
 	];
-	onActivation.cleanup = "zap";
+	#onActivation.cleanup = "zap";
+  #homebrew.global.brewfile = true;
 	onActivation.autoUpdate = true;
 	onActivation.upgrade = true;
       };
@@ -92,9 +105,11 @@
 	dock.expose-animation-duration = 0.05;
 	dock.persistent-apps = [
 	  "${pkgs.arc-browser}/Applications/Arc.app"
+	  "Applications/Ghostty.app"
+    "/System/Applications/Calendar.app"
 	  "${pkgs.obsidian}/Applications/Obsidian.app"
 	  "${pkgs.spotify}/Applications/Spotify.app"
-	  "/System/Apps/Calendar"
+	  "Applications/Anki.app"
 	]; 
 	#systemPowerManagement = {
 	#  "AC Power" = {
@@ -112,10 +127,9 @@
 	NSGlobalDomain.AppleInterfaceStyle = "Dark";
 	NSGlobalDomain.KeyRepeat = 2;
       };
+      system.primaryUser = "baptiste";
 
-
-      security.pam.enableSudoTouchIdAuth = true;
-
+      security.pam.services.sudo_local.touchIdAuth = true;
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
