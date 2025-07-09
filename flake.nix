@@ -41,16 +41,17 @@
 	  pkgs.arc-browser
 	  pkgs.ollama
 	  pkgs.iosevka
+	  pkgs.hackgen-font
 	  pkgs.openssl
 	  pkgs.fzf
 	  pkgs.fd
 	  pkgs.ripgrep
 	  pkgs.python314
-    pkgs.go
-    pkgs.rustup
-    pkgs.yarn
-    pkgs.iina
-    pkgs.zellij
+	  pkgs.go
+	  pkgs.rustup
+	  pkgs.yarn
+	  pkgs.iina
+	  pkgs.zellij
         ];
 
       homebrew = {
@@ -98,6 +99,13 @@
 	  done
         '';
 
+	# AnkiConnect for yomitan-anki connection
+	system.activationScripts.ankiQtDefaults.text = ''
+        ${pkgs.darwin.defaults}/bin/defaults write net.ankiweb.dtop NSAppSleepDisabled -bool true
+        ${pkgs.darwin.defaults}/bin/defaults write net.ichi2.anki NSAppSleepDisabled -bool true
+        ${pkgs.darwin.defaults}/bin/defaults write org.qt-project.Qt.QtWebEngineCore NSAppSleepDisabled -bool true
+      '';
+
       system.defaults = {
 	dock.autohide = true;
 	dock.autohide-time-modifier = 0.4;
@@ -126,6 +134,7 @@
 	NSGlobalDomain.AppleICUForce24HourTime = true;
 	NSGlobalDomain.AppleInterfaceStyle = "Dark";
 	NSGlobalDomain.KeyRepeat = 2;
+
       };
       system.primaryUser = "baptiste";
 
