@@ -39,7 +39,6 @@
           pkgs.obsidian
           pkgs.git
           pkgs.spotify
-          pkgs.arc-browser
           pkgs.ollama
           pkgs.iosevka
           pkgs.hackgen-font
@@ -50,12 +49,14 @@
           pkgs.go
           pkgs.yarn
           pkgs.iina
-          pkgs.zellij
           pkgs.exiftool
           pkgs.baobab
           pkgs.pkgconf
           pkgs.pkg-config
-	  pkgs.darwin.apple_sdk.frameworks.Foundation
+	  pkgs.mongosh
+	  pkgs.qemu
+	  pkgs.ansible
+	  pkgs.python313
         ];
 
       # Configuration Homebrew via le module natif de nix-darwin
@@ -66,10 +67,14 @@
         # Vous n'avez PAS besoin de définir enableRosetta ici.
 
         brews = [
+	  "zellij"
           "openssl"
           "mas"
           "rust"
           "llvm"
+	  "htop"
+	  "bat"
+	  "fastfetch"
         ];
         casks = [
           "the-unarchiver"
@@ -79,6 +84,7 @@
           "maccy"
           "tradingview"
           "ghostty"
+	  "db-browser-for-sqlite"
         ];
         onActivation.autoUpdate = true;
         onActivation.upgrade = true;
@@ -121,7 +127,6 @@
         dock.autohide-delay = 0.0;
         dock.expose-animation-duration = 0.05;
         dock.persistent-apps = [
-          "${pkgs.arc-browser}/Applications/Arc.app"
           "Applications/Proton Mail.app"
           "/System/Applications/Calendar.app"
           "Applications/Ghostty.app"
@@ -163,5 +168,13 @@
         configuration
       ];
     };
+    devShells."aarch64-darwin".default = let
+       pkgs = nixpkgs.legacyPackages."aarch64-darwin";
+    in pkgs.mkShell {
+       packages = [
+         pkgs.nixpkgs-fmt
+       nix-darwin.packages."aarch64-darwin".darwin-rebuild
+    ];
+  };
   };
 }
